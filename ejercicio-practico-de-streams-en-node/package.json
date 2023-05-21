@@ -1,0 +1,9 @@
+{
+  "name": "ejercicio-practico-de-streams-en-node",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "sharp": "^0.32.1"
+  }
+}
