@@ -1,0 +1,15 @@
+{
+  "name": "cuenta-bancaria-sin-persistencia",
+  "version": "1.0.0",
+  "description": "",
+  "main": "balance.js",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "scripts": {
+    "start": "node balance.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
