@@ -7,6 +7,7 @@ router.get("/", getTweets);
 router.post("/", createTweet);
 router.get("/:tweetId", getTweet);
 router.delete("/:tweetId", deleteTweet);
+router.patch("/:tweetId", updateTweet);
 
 module.exports = router;
 
@@ -46,6 +47,22 @@ async function deleteTweet(req, res) {
 
     if (deletedRows > 0) {
       res.status(200).json({ message: "Tweet deleted" });
+    } else {
+      res.status(404).json({ message: "Tweet not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+async function updateTweet(req, res) {
+  try {
+    const { tweetId } = req.params;
+    const { content } = req.body;
+    const updatedRows = await tweetsService.updateTweet(tweetId, content);
+
+    if (updatedRows > 0) {
+      res.status(200).json({ message: "Tweet updated" });
     } else {
       res.status(404).json({ message: "Tweet not found" });
     }

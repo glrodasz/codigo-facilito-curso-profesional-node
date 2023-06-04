@@ -5,6 +5,7 @@ module.exports = {
   createTweet,
   getTweet,
   deleteTweet,
+  updateTweet,
 };
 
 async function getTweets() {
@@ -50,6 +51,19 @@ async function deleteTweet(tweetId) {
   return new Promise((resolve, reject) => {
     const query = "DELETE FROM tweets WHERE tweetId = ?";
     connection.query(query, tweetId, (err, res) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(res.affectedRows);
+      }
+    });
+  });
+}
+
+async function updateTweet(tweetId, content) {
+  return new Promise((resolve, reject) => {
+    const query = "UPDATE tweets SET content = ? WHERE tweetId = ?";
+    connection.query(query, [content, tweetId], (err, res) => {
       if (err) {
         reject(err);
       } else {

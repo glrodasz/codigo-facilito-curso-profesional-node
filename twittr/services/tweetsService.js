@@ -5,6 +5,7 @@ module.exports = {
   createTweet,
   getTweet,
   deleteTweet,
+  updateTweet,
 };
 
 async function getTweets() {
@@ -21,4 +22,8 @@ async function getTweet(tweetId) {
 
 async function deleteTweet(tweetId) {
   return await tweetsRepository.deleteTweet(tweetId);
+}
+
+async function updateTweet(tweetId, content) {
+  return await tweetsRepository.updateTweet(tweetId, content);
 }
