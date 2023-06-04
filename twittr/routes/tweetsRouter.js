@@ -1,5 +1,7 @@
 const express = require("express");
 const tweetsService = require("../services/tweetsService");
+const validate = require("../utils/validate");
+const { createTweetSchema } = require("../utils/schemas/tweetsSchema");
 
 const router = express.Router();
 
@@ -11,36 +13,45 @@ router.patch("/:tweetId", updateTweet);
 
 module.exports = router;
 
-async function getTweets(req, res) {
+async function getTweets(req, res, next) {
   try {
+    // throw new Error("Error getting tweets");
     const tweets = await tweetsService.getTweets();
     res.status(200).json(tweets);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 }
 
-async function createTweet(req, res) {
+async function createTweet(req, res, next) {
   try {
     const tweet = req.body;
+    const validatationError = validate(tweet, createTweetSchema);
+
+    if (validatationError) {
+      return res
+        .status(400)
+        .json({ error: validatationError.details[0].message });
+    }
+
     const result = await tweetsService.createTweet(tweet);
     res.status(201).json(result);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 }
 
-async function getTweet(req, res) {
+async function getTweet(req, res, next) {
   try {
     const { tweetId } = req.params;
     const tweet = await tweetsService.getTweet(tweetId);
     res.status(200).json(tweet);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 }
 
-async function deleteTweet(req, res) {
+async function deleteTweet(req, res, next) {
   try {
     const { tweetId } = req.params;
     const deletedRows = await tweetsService.deleteTweet(tweetId);
@@ -51,11 +62,11 @@ async function deleteTweet(req, res) {
       res.status(404).json({ message: "Tweet not found" });
     }
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 }
 
-async function updateTweet(req, res) {
+async function updateTweet(req, res, next) {
   try {
     const { tweetId } = req.params;
     const { content } = req.body;
@@ -67,6 +78,6 @@ async function updateTweet(req, res) {
       res.status(404).json({ message: "Tweet not found" });
     }
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 }
