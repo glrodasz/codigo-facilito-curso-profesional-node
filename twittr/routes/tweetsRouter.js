@@ -1,7 +1,7 @@
 const express = require("express");
 const tweetsService = require("../services/tweetsService");
 // const validate = require("../utils/validate");
-const validationMiddleware = require("../utils/middlewares/validationMiddleware");
+const validation = require("../utils/middlewares/createValidationMiddleware");
 const {
   createTweetSchema,
   updateTweetSchema,
@@ -13,23 +13,23 @@ const router = express.Router();
 router.get("/", getTweets);
 router.post(
   "/",
-  validationMiddleware({ body: createTweetSchema }),
+  validation({ body: createTweetSchema }),
   createTweet
 );
 router.get(
   "/:tweetId",
-  validationMiddleware({ params: tweetIdSchema }),
+  validation({ params: tweetIdSchema }),
   getTweet
 );
 router.delete(
   "/:tweetId",
-  validationMiddleware({ params: tweetIdSchema }),
+  validation({ params: tweetIdSchema }),
   deleteTweet
 );
 router.patch(
   "/:tweetId",
-  validationMiddleware({ params: tweetIdSchema }),
-  validationMiddleware({ body: updateTweetSchema }),
+  validation({ params: tweetIdSchema }),
+  validation({ body: updateTweetSchema }),
   updateTweet
 );
 
