@@ -1,3 +1,4 @@
+// const boom = require("@hapi/boom");
 const validate = require("../validate");
 
 // @param {Object} validationSchema - { [K in "body"|"query"|"params"]: joiSchema }
