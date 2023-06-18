@@ -1,8 +1,9 @@
 const express = require("express");
-const tweetsRouter = require("./routes/tweetsRouter");
-const { logErrors, wrapErrors, errorHandler } = require("./utils/middlewares/errorMiddlewares");
 const config = require("./config");
-const notFoundHandler = require("./utils/middlewares/notFoundMiddleware");
+const tweetsRouter = require("./routes/tweetsRouter");
+
+const { logErrors, wrapErrors, errorHandler } = require("./utils/middlewares/errorMiddlewares");
+const notFound = require("./utils/middlewares/notFoundMiddleware");
 
 const app = express();
 const port = config.port;
@@ -11,7 +12,7 @@ app.use(express.json());
 app.use("/tweets", tweetsRouter);
 
 // Catch 404
-app.use(notFoundHandler)
+app.use(notFound)
 
 // Error Middlewares
 app.use(logErrors);
