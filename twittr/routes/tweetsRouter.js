@@ -11,12 +11,13 @@ router.patch("/:tweetId", updateTweet);
 
 module.exports = router;
 
-async function getTweets(req, res) {
+async function getTweets(req, res, next) {
   try {
+    throw new Error("This is an error from the tweets router");
     const tweets = await tweetsService.getTweets();
     res.status(200).json(tweets);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 }
 

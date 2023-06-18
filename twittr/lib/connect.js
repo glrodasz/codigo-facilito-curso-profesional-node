@@ -1,8 +1,7 @@
-const dotenv = require("dotenv");
-dotenv.config();
+const config = require("../config");
 
 const mysql = require("mysql2");
-const connection = mysql.createConnection(process.env.DATABASE_URL);
+const connection = mysql.createConnection(config.databaseUrl);
 
 console.log("Connected to database");
 
