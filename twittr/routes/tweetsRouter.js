@@ -1,6 +1,9 @@
 const express = require("express");
 const tweetsService = require("../services/tweetsService");
 
+const validate = require("../utils/validate");
+const { createTweetSchema } = require("../utils/schemas/tweetsSchema");
+
 const router = express.Router();
 
 router.get("/", getTweets);
@@ -13,7 +16,7 @@ module.exports = router;
 
 async function getTweets(req, res, next) {
   try {
-    throw new Error("This is an error from the tweets router");
+    // throw new Error("This is an error from the tweets router");
     const tweets = await tweetsService.getTweets();
     res.status(200).json(tweets);
   } catch (error) {
@@ -21,13 +24,21 @@ async function getTweets(req, res, next) {
   }
 }
 
-async function createTweet(req, res) {
+async function createTweet(req, res, next) {
   try {
     const tweet = req.body;
+    const validationError = validate(tweet, createTweetSchema);
+
+    if (validationError) {
+      return res
+        .status(400)
+        .json({ error: validationError.details[0].message });
+    }
+
     const result = await tweetsService.createTweet(tweet);
     res.status(201).json(result);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 }
 
