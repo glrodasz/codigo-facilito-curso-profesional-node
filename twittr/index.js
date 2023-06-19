@@ -6,12 +6,16 @@ const {
   wrapErrors,
   errorHandler,
 } = require("./utils/middlewares/errorMiddlewares");
+const notFound = require("./utils/middlewares/notFoundMiddleware");
 
 const app = express();
 const port = config.port;
 
 app.use(express.json());
 app.use("/tweets", tweetsRouter);
+
+// Catch 404
+app.use(notFound);
 
 // Error middlewares
 app.use(logErrors);
