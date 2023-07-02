@@ -13,20 +13,20 @@ describe("[ routes / tweetsRouter ]", () => {
     const expected = 200;
 
     // Act
-    const result = await request.get("/tweets");
+    const { status: result } = await request.get("/tweets");
 
     // Assert
-    expect(result.status).toEqual(expected);
+    expect(result).toEqual(expected);
   });
 
   it("should return all tweets", async () => {
-	// Arrange
-	const expected = ["tweet1", "tweet2"];
+    // Arrange
+    const expected = ["tweet1", "tweet2"];
 
-	// Act
-	const result = await request.get("/tweets");
+    // Act
+    const { body: result } = await request.get("/tweets");
 
-	// Assert
-	expect(result.body).toEqual(expected);
+    // Assert
+    expect(result).toEqual(expected);
   });
 });
