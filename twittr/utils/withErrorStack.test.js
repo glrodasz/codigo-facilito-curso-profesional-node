@@ -1,3 +1,6 @@
+// const { describe, it } = require("node:test");
+// const assert = require("node:assert");
+
 const withErrorStack = require("./withErrorStack");
 
 describe("[ utils / withErrorStack ]", () => {
@@ -12,6 +15,7 @@ describe("[ utils / withErrorStack ]", () => {
 
     // Assert
     expect(result).toEqual(expected);
+    // assert.deepEqual(result, expected)
   });
 
   it("should return the error without the stack", () => {
@@ -25,5 +29,6 @@ describe("[ utils / withErrorStack ]", () => {
 
     // Assert
     expect(result).toEqual(expected);
+    // assert.deepEqual(result, expected)
   });
 });
