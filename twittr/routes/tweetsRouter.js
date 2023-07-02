@@ -11,21 +11,9 @@ const {
 const router = express.Router();
 
 router.get("/", getTweets);
-router.post(
-  "/",
-  validation({ body: createTweetSchema }),
-  createTweet
-);
-router.get(
-  "/:tweetId",
-  validation({ params: tweetIdSchema }),
-  getTweet
-);
-router.delete(
-  "/:tweetId",
-  validation({ params: tweetIdSchema }),
-  deleteTweet
-);
+router.post("/", validation({ body: createTweetSchema }), createTweet);
+router.get("/:tweetId", validation({ params: tweetIdSchema }), getTweet);
+router.delete("/:tweetId", validation({ params: tweetIdSchema }), deleteTweet);
 router.patch(
   "/:tweetId",
   validation({ params: tweetIdSchema }),
@@ -33,7 +21,7 @@ router.patch(
   updateTweet
 );
 
-module.exports = router;
+module.exports = (app) => app.use("/tweets", router);
 
 async function getTweets(req, res, next) {
   try {

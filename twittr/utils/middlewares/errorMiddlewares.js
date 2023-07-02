@@ -1,5 +1,5 @@
 // const boom = require('@hapi/boom');
-const withErrorStack = require("../utils/withErrorStack");
+const withErrorStack = require("../withErrorStack");
 
 // function withErrorStack(error, stack) {
 //   if (config.dev) {
