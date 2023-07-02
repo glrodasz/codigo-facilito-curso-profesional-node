@@ -16,7 +16,7 @@ describe("[ services/tweetService ]", () => {
 
       // Assert
       expect(result).toEqual(expected);
-	  expect(tweetsRepository.getTweets).toHaveBeenCalledTimes(1)
+      expect(tweetsRepository.getTweets).toHaveBeenCalledTimes(1);
     });
   });
 });
