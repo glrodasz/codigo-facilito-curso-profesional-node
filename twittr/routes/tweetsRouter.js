@@ -22,7 +22,7 @@ router.patch(
   updateTweet
 );
 
-module.exports = router;
+module.exports = (app) => app.use("/tweets", router);
 
 async function getTweets(req, res, next) {
   try {
