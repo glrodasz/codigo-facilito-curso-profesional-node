@@ -1,4 +1,5 @@
 const express = require("express");
+const helmet = require("helmet");
 const config = require("./config");
 const tweetsRouter = require("./routes/tweetsRouter");
 
@@ -8,6 +9,8 @@ const notFound = require("./utils/middlewares/notFoundMiddleware");
 const app = express();
 const port = config.port;
 
+// Global Middlewares
+app.use(helmet());
 app.use(express.json());
 
 // Routes
