@@ -8,11 +8,22 @@ const {
   tweetIdSchema,
 } = require("../utils/schemas/tweetsSchema");
 
+const cache = require("../utils/middlewares/createCacheMiddleware");
+const {
+  ONE_MINUTE_IN_SECONDS,
+  FIVE_MINUTES_IN_SECONDS,
+} = require("../utils/time");
+
 const router = express.Router();
 
-router.get("/", getTweets);
+router.get("/", cache(ONE_MINUTE_IN_SECONDS), getTweets);
 router.post("/", validation({ body: createTweetSchema }), createTweet);
-router.get("/:tweetId", validation({ params: tweetIdSchema }), getTweet);
+router.get(
+  "/:tweetId",
+  validation({ params: tweetIdSchema }),
+  cache(FIVE_MINUTES_IN_SECONDS),
+  getTweet
+);
 router.delete("/:tweetId", validation({ params: tweetIdSchema }), deleteTweet);
 router.patch(
   "/:tweetId",
