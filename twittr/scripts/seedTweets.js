@@ -1,3 +1,4 @@
+const debug = require("debug")("app:database:scripts");
 const connection = require("../lib/connect");
 
 const insertTweets = `INSERT INTO tweets (userId, content)
@@ -14,15 +15,16 @@ VALUES
 (2, 'Just finished a database design project')`;
 
 const printError = (msg) => (error) => {
-  error && console.log(msg, error);
+  error && debug(msg, error);
 };
 
 connection.connect((error) => {
-  error && console.log("Error connecting to database", error);
+  error && debug("Error connecting to database", error);
 
   connection.query(insertTweets, printError("Error inserting tweets"));
 
-  console.log("Inserting tweets done!");
+  debug("Inserting tweets done!");
 
   connection.end();
 });
+

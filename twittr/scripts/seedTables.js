@@ -1,3 +1,4 @@
+const debug = require("debug")("app:database:scripts");
 const connection = require("../lib/connect");
 
 const createUsersTable = `CREATE TABLE users (
@@ -26,11 +27,11 @@ const insertUsers = `INSERT INTO users (username, email, passwordHash, bio, loca
   ('JaneDoe', 'janedoe@example.com', 'hashedpassword2', 'I love databases', 'San Francisco')`;
 
 const printError = (msg) => (error) => {
-  error && console.log(msg, error);
+  error && debug(msg, error);
 };
 
 connection.connect((error) => {
-  error && console.log("Error connecting to database", error);
+  error && debug("Error connecting to database", error);
 
   connection.query(createUsersTable, printError("Error creating users table"));
   connection.query(
@@ -39,7 +40,7 @@ connection.connect((error) => {
   );
   connection.query(insertUsers, printError("Error inserting users"));
 
-  console.log("Creation tables and inserting users done!");
+  debug("Creation tables and inserting users done!");
 
   connection.end();
 });

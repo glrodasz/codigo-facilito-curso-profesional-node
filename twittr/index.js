@@ -1,9 +1,14 @@
 const express = require("express");
 const helmet = require("helmet");
+const debug = require("debug")("app:server");
 const config = require("./config");
 const tweetsRouter = require("./routes/tweetsRouter");
 
-const { logErrors, wrapErrors, errorHandler } = require("./utils/middlewares/errorMiddlewares");
+const {
+  logErrors,
+  wrapErrors,
+  errorHandler,
+} = require("./utils/middlewares/errorMiddlewares");
 const notFound = require("./utils/middlewares/notFoundMiddleware");
 
 const app = express();
@@ -18,13 +23,11 @@ app.use(express.json());
 tweetsRouter(app);
 
 // Catch 404
-app.use(notFound)
+app.use(notFound);
 
 // Error Middlewares
 app.use(logErrors);
 app.use(wrapErrors);
 app.use(errorHandler);
 
-app.listen(port, () =>
-  console.log(`🌍 Server running at http://localhost:${port}`)
-);
+app.listen(port, () => debug(`🌍 Server running at http://localhost:${port}`));

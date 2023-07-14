@@ -8,6 +8,7 @@ const {
   tweetIdSchema,
 } = require("../utils/schemas/tweetsSchema");
 
+// Load cache middleware
 const cache = require("../utils/middlewares/createCacheMiddleware");
 const {
   ONE_MINUTE_IN_SECONDS,
