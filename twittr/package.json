@@ -24,6 +24,7 @@
     "mysql2": "^3.3.3"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.3.3",
     "supertest": "^6.3.3"
   },
   "overrides": {
