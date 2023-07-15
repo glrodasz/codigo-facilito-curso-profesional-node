@@ -1,5 +1,6 @@
 const express = require("express");
 const helmet = require("helmet");
+const debug = require("debug")("app:server");
 const cors = require("cors");
 const config = require("./config");
 const tweetsRouter = require("./routes/tweetsRouter");
@@ -30,5 +31,5 @@ app.use(wrapErrors);
 app.use(errorHandler);
 
 app.listen(port, () =>
-  console.log(`🌍 Server running at http://localhost:${port}`)
+debug(`🌍 Server running at http://localhost:${port}`)
 );
