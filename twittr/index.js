@@ -1,5 +1,6 @@
 const express = require("express");
 const helmet = require("helmet");
+const cors = require("cors");
 const config = require("./config");
 const tweetsRouter = require("./routes/tweetsRouter");
 const {
@@ -12,11 +13,10 @@ const notFound = require("./utils/middlewares/notFoundMiddleware");
 const app = express();
 const port = config.port;
 
-
 // Global middlewares
+app.use(cors({ origin: config.dev ? "*" : config.corsOrigin }));
 app.use(helmet());
 app.use(express.json());
-
 
 // app.use("/tweets", tweetsRouter);
 tweetsRouter(app);
