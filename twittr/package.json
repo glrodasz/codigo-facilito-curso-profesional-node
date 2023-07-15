@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "node --watch index.js",
     "dev:debug": "DEBUG=express:router,app:* npm run dev",
+    "dev:inspect": "node --inspect index.js",
     "test": "jest",
     "test:watch": "npm run test -- --watchAll"
   },
